@@ -1,2 +1,2 @@
-# demo-ms-service
+# micro-service
 master
