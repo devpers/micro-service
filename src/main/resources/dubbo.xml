@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!-- 应用名称 -->
+    <dubbo:application name="demo-ms-service"/>
+
+    <!-- 注册中心 -->
+    <dubbo:registry address="multicast:127.0.0.1:1234"/>
+
+    <!-- 服务提供者协议 -->
+    <dubbo:protocol name="dubbo"/>
+
+    <!-- 提供服务 -->
+    <dubbo:service interface="com.demo.service.UserService" ref="userService"/>
+
+    <!-- 依赖服务 -->
+
+
+
+</beans>

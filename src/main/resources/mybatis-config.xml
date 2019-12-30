@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- mybatis 配置 -->
+<configuration>
+
+    <!-- 引入外部配置文件，指定占位符的值 -->
+    <properties resource="application.properties"></properties>
+
+    <environments default="development">
+        <environment id="development">
+            <!-- 事务配置 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库配置 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${demo.db.driverClass}"/>
+                <property name="url" value="${demo.db.jdbcUrl}"/>
+                <property name="username" value="${demo.db.username}"/>
+                <property name="password" value="${demo.db.password}"/>
+
+                <!-- 数据库连接池配置：如最大连接数、最大活动连接数、最大等待时间等 -->
+                <!-- 使用springBoot后是否仍然需要配置？需要如何配置 -->
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
+
+</configuration>

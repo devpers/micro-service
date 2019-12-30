@@ -1,0 +1,81 @@
+buildscript {
+    repositories {
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+        }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE"
+    }
+}
+
+// 工程所属、版本
+group 'com.cc'
+version '1.0-SNAPSHOT'
+
+// springboot插件，可以打包成可执行的jar或war
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+// jar包
+jar.enabled(true)
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.demo.DemoMsApplication'
+    }
+}
+
+// 中央仓库，可以使用三方或自己的。如果使用maven可以在setting.xml配置全局仓库
+repositories {
+    // maven中央仓库
+//    mavenCentral()
+
+    // 其他远程仓库，支持maven 和 lvy。
+    maven {
+        // 阿里maven远程仓库
+        url "http://maven.aliyun.com/nexus/content/groups/public/"
+    }
+
+//    lvy{
+//        url ""
+//    }
+}
+
+// 外部依赖
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1"
+    compile 'org.redisson:redisson-spring-boot-starter:3.11.2'
+
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    compile 'com.alibaba:druid-spring-boot-starter:1.1.17'
+    compile 'com.alibaba:fastjson:1.2.58'
+    compile 'mysql:mysql-connector-java:5.1.46'
+    compile 'com.alibaba:dubbo:2.6.6'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    compile 'com.alibaba:easyexcel:2.0.5'
+    compile 'com.alibaba.csp:sentinel-core:1.6.3'
+    compile 'com.alibaba.csp:sentinel-transport-simple-http:1.6.3'
+
+    compile 'org.slf4j:slf4j-api:1.7.12'
+    compile 'org.apache.logging.log4j:log4j-api:2.12.1'
+    compile 'org.apache.logging.log4j:log4j-core:2.12.1'
+    compile 'org.apache.commons:commons-lang3:3.8.1'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
+    compile 'com.google.guava:guava:28.1-jre'
+
+    compile 'io.netty:netty-all:4.1.39.Final'
+
+    compile 'org.aspectj:aspectjweaver:1.9.4'
+    compile 'com.github.ben-manes.caffeine:caffeine:2.8.0'
+
+    compile 'redis.clients:jedis:3.1.0'
+
+
+}

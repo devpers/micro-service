@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- spring默认提供logback，logback 配置介绍 http://logback.qos.ch/manual/index.html 网友帖子https://www.jianshu.com/p/04065d8cb2a9 -->
+<configuration>
+
+    <contextName>demo-ms-service</contextName>
+
+    <property name="macLogPosition" value="/Users/admin/logs"/>
+
+    <property name="winLogPosition" value="/Users/luffy/logs"/>
+
+    <!-- 通过引入spring的配置文件，可以引用其提供的appender -->
+    <include optional="true" resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- 在日志xml配置中，可以定义多个appender。STDOUT负责向控制台打印日志-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{36} [%file:%line] - %msg%n</Pattern>
+        </layout>
+    </appender>
+
+    <!-- FILE负责向文件输送日志-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logPosition}/demo-ms-service.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${winLogPosition}/demo-ms-service.%d{yyyy-MM-dd_HH-mm}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- spring不同profile的日志配置。dev -->
+    <springProfile name="dev">
+        <logger name="com.demo" level="debug" additivity="true">
+<!--            <appender-ref ref="CONSOLE"/>-->
+            <appender-ref ref="FILE"/>
+        </logger>
+    </springProfile>
+
+    <!-- 生产环境日志，可以输出到指定文件或上传到的日志服务 -->
+    <springProfile name="prd">
+        <logger name="com.demo" level="info" additivity="true">
+            <appender-ref ref="FILE"/>
+        </logger>
+    </springProfile>
+
+    <!-- 日志跟记录器-->
+    <root level="info">
+<!--        <appender-ref ref="CONSOLE"/>-->
+<!--        <appender-ref ref="STDOUT"/>-->
+    </root>
+
+</configuration>
