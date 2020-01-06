@@ -1,15 +1,38 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.demo.dao.UserDao">
+<mapper namespace="com.micro.dao.UserDao">
 
+    <!--  一级缓存配置  -->
     <cache/>
 
-    <select id="getUserById" resultType="com.demo.entity.UserDO" >
+    <!--  该mapper使用的缓存策略  -->
+<!--    <cache-ref namespace="org.apache.ibatis.cache.decorators.FifoCache"/>-->
+
+    <!--  结果集  -->
+    <resultMap id="userResult" type="com.micro.entity.UserDO">
+
+    </resultMap>
+
+    <!--  参数集  -->
+    <parameterMap id="userParam" type="com.micro.entity.UserDO">
+
+    </parameterMap>
+
+    <!--  sql片段，可以被其他sql语句引用  -->
+    <sql id="getUser">
+        select * from user
+    </sql>
+
+    <select id="getUserDO" resultMap="userResult">
+        <include refid="getUser"></include>
+    </select>
+
+    <select id="getUserById" resultType="com.micro.entity.UserDO">
         select * from user where uid = #{uid}
     </select>
 
-    <resultMap id="userDOMap" type="com.demo.entity.UserDO">
+    <resultMap id="userDOMap" type="com.micro.entity.UserDO">
         <result column="uid" property="uid"/>
         <result column="name" property="name"/>
         <result column="address" property="address"/>

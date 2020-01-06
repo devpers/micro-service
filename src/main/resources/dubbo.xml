@@ -15,7 +15,7 @@
     <dubbo:protocol name="dubbo"/>
 
     <!-- 提供服务 -->
-    <dubbo:service interface="com.demo.service.UserService" ref="userService"/>
+    <dubbo:service interface="com.micro.service.UserService" ref="userService"/>
 
     <!-- 依赖服务 -->
 

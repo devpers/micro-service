@@ -35,7 +35,7 @@
 
     <!-- spring不同profile的日志配置。dev -->
     <springProfile name="dev">
-        <logger name="com.demo" level="debug" additivity="true">
+        <logger name="com.micro" level="debug" additivity="true">
 <!--            <appender-ref ref="CONSOLE"/>-->
             <appender-ref ref="FILE"/>
         </logger>
@@ -43,7 +43,7 @@
 
     <!-- 生产环境日志，可以输出到指定文件或上传到的日志服务 -->
     <springProfile name="prd">
-        <logger name="com.demo" level="info" additivity="true">
+        <logger name="com.micro" level="info" additivity="true">
             <appender-ref ref="FILE"/>
         </logger>
     </springProfile>
